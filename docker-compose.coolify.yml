@@ -51,7 +51,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: password123
       MONGO_INITDB_DATABASE: rajalakshmi_cms
     ports:
-      - "27018:27017"
+      - "27020:27017"
     volumes:
       - mongodb_data:/data/db
     networks:
