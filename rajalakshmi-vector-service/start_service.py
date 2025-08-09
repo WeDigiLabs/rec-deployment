@@ -26,8 +26,16 @@ except ImportError as e:
     sys.exit(1)
 
 # Configure logging
+log_level = settings.log_level.upper() if settings.log_level else "INFO"
+
+if hasattr(logging, log_level):
+    logging_level = getattr(logging, log_level)
+else:
+    # Fallback to INFO if invalid log level
+    logging_level = logging.INFO
+
 logging.basicConfig(
-    level=getattr(logging, settings.log_level.upper()),
+    level=logging_level,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 

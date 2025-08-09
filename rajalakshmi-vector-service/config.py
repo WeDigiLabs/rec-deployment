@@ -5,6 +5,7 @@ Configuration settings for Rajalakshmi Vector Service
 import os
 from typing import List, Optional
 from pydantic_settings import BaseSettings
+from pydantic import field_validator
 
 
 class Settings(BaseSettings):
@@ -50,6 +51,19 @@ class Settings(BaseSettings):
     
     # Environment
     environment: str = "development"
+    
+    @field_validator('log_level')
+    @classmethod
+    def validate_log_level(cls, v):
+        """Validate and normalize log level"""
+        if not v or v.strip() == "":
+            return "INFO"
+        
+        valid_levels = ["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]
+        v_upper = v.upper()
+        if v_upper not in valid_levels:
+            return "INFO"
+        return v_upper
     
     model_config = {
         "env_file": ".env",
