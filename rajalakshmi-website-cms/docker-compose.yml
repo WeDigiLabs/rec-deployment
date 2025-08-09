@@ -1,0 +1,61 @@
+# Rajalakshmi Website CMS - Docker Compose Configuration
+# This configuration sets up the Payload CMS application with MongoDB
+
+services:
+  # MongoDB Database
+  mongodb:
+    image: mongo:7-jammy
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password123
+      MONGO_INITDB_DATABASE: rajalakshmi_cms
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongodb_data:/data/db
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
+
+  # Payload CMS Application
+  app:
+    build:
+      context: .
+    environment:
+      NODE_ENV: production
+      DATABASE_URI: mongodb://admin:password123@mongodb:27017/rajalakshmi_cms?authSource=admin
+      PAYLOAD_SECRET: your-super-secret-key-here-change-this-in-production
+      ADMIN_EMAIL: admin@rajalakshmi.edu.in
+      ADMIN_PASSWORD: admin123
+    ports:
+      - "3020:3000"
+    volumes:
+      - media_uploads:/usr/src/app/media
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  mongodb_data:
+  media_uploads:
+#     environment:
+#       - POSTGRES_DB=example
+#       - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
+#     expose:
+#       - 5432
+#     healthcheck:
+#       test: [ "CMD", "pg_isready" ]
+#       interval: 10s
+#       timeout: 5s
+#       retries: 5
+# volumes:
+#   db-data:
+# secrets:
+#   db-password:
+#     file: db/password.txt
+

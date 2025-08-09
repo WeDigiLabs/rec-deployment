@@ -1,0 +1,86 @@
+version: '3.8'
+
+services:
+  # Vector DB Service
+  qdrant:
+    image: qdrant/qdrant:latest
+    restart: unless-stopped
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - qdrant_storage:/qdrant/storage
+
+  vector-server:
+    build:
+      context: ./rajalakshmi-vector-service
+    depends_on:
+      - qdrant
+    env_file:
+      - ./rajalakshmi-vector-service/.env
+    environment:
+      QDRANT_URL: http://qdrant:6333
+      OPENAI_API_KEY: not_required_for_lm_studio
+      OPENAI_BASE_URL: https://laptop-483nic2i.tail7526d.ts.net/v1
+      OPENAI_MODEL: embedding
+      SKIP_OPENAI_API_KEY_CHECK: "1"
+    ports:
+      - "8000:8000"
+
+  # Website CMS
+  mongodb:
+    image: mongo:7-jammy
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password123
+      MONGO_INITDB_DATABASE: rajalakshmi_cms
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongodb_data:/data/db
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
+
+  cms-app:
+    build:
+      context: ./rajalakshmi-website-cms
+    environment:
+      NODE_ENV: production
+      DATABASE_URI: mongodb://admin:password123@mongodb:27017/rajalakshmi_cms?authSource=admin
+      PAYLOAD_SECRET: your-super-secret-key-here-change-this-in-production
+      ADMIN_EMAIL: admin@rajalakshmi.edu.in
+      ADMIN_PASSWORD: admin123
+    ports:
+      - "3020:3000"
+    volumes:
+      - media_uploads:/usr/src/app/media
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # AI Chat Service
+  ai-chat-server:
+    build:
+      context: ./rec-ai-chat
+    environment:
+      NODE_ENV: production
+    ports:
+      - "3002:3002"
+
+  # Website Chat Service
+  website-chat-server:
+    build:
+      context: ./rajalakshmi-website-chat-service
+    ports:
+      - "8001:8001"
+
+volumes:
+  qdrant_storage:
+  mongodb_data:
+  media_uploads:

@@ -1,0 +1,43 @@
+# Core dependencies
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+pydantic==2.5.0
+pydantic-settings==2.1.0
+python-dotenv==1.0.0
+
+# Database and Vector Store
+qdrant-client==1.7.0
+sqlalchemy==2.0.23
+psycopg2-binary==2.9.9
+
+# ML and Embeddings
+openai>=1.10.0  # Supports base_url parameter for LM Studio compatibility
+sentence-transformers==2.2.2
+numpy==1.24.3
+torch==2.1.1
+
+# HTTP and Async
+httpx==0.25.2
+aiohttp==3.9.1
+asyncio==3.4.3
+
+# Text Processing
+beautifulsoup4==4.12.2
+markdownify==0.11.6
+html2text==2020.1.16
+nltk==3.8.1
+
+# Utilities
+uuid==1.30
+python-dateutil==2.8.2
+typing-extensions==4.8.0
+tenacity==8.2.3
+
+# Logging and Monitoring
+structlog==23.2.0
+rich==13.7.0
+
+# Testing (optional)
+pytest==7.4.3
+pytest-asyncio==0.21.1
+httpx==0.25.2

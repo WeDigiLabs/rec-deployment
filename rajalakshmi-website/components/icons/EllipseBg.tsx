@@ -1,0 +1,18 @@
+import * as React from "react";
+
+const EllipseBg = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg width="417" height="773" viewBox="0 0 417 773" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <g filter="url(#filter0_f_0_2269)">
+      <ellipse cx="91.4283" cy="326.434" rx="73" ry="354.417" transform="rotate(30 91.4283 326.434)" fill="#22282B" fillOpacity="0.18" />
+    </g>
+    <defs>
+      <filter id="filter0_f_0_2269" x="-233.771" y="-119.693" width="650.398" height="892.254" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+        <feFlood floodOpacity="0" result="BackgroundImageFix" />
+        <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+        <feGaussianBlur stdDeviation="68.5" result="effect1_foregroundBlur_0_2269" />
+      </filter>
+    </defs>
+  </svg>
+);
+
+export default EllipseBg; 

@@ -1,0 +1,54 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.env
+.env
+venv/
+*.egg-info/
+
+# Node.js
+node_modules/
+pnpm-lock.yaml
+yarn.lock
+
+# Next.js
+.next/
+
+# Logs
+*.log
+
+# Docker
+*.pid
+docker-compose.override.yml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Build
+build/
+dist/
+
+# Misc
+*.sqlite3
+*.db
+*.bak
+*.tmp
+*.swp
+
+# Coverage
+coverage/
+*.lcov
+
+# Test
+junit.xml
+coverage-final.json
+
+# Others
+*.tsbuildinfo

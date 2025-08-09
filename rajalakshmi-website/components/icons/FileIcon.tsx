@@ -1,0 +1,9 @@
+import * as React from "react";
+
+const FileIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg width="39" height="38" viewBox="0 0 39 38" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M21.2085 14.25V5.54163L29.9168 14.25M10.1252 3.16663C8.36766 3.16663 6.9585 4.57579 6.9585 6.33329V31.6666C6.9585 32.5065 7.29213 33.3119 7.88599 33.9058C8.47986 34.4997 9.28531 34.8333 10.1252 34.8333H29.1252C29.965 34.8333 30.7705 34.4997 31.3643 33.9058C31.9582 33.3119 32.2918 32.5065 32.2918 31.6666V12.6666L22.7918 3.16663H10.1252Z" fill="#6A1B9A"/>
+  </svg>
+);
+
+export default FileIcon; 
