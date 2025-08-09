@@ -1,4 +1,5 @@
 import os
+from pydantic import field_validator
 from pydantic_settings import BaseSettings
 
 class ChatSettings(BaseSettings):
@@ -14,6 +15,27 @@ class ChatSettings(BaseSettings):
     max_conversation_history: int = 50
     session_timeout: int = 3600  # 1 hour
     max_search_results: int = 5
+    
+    @field_validator('max_conversation_history', mode='before')
+    @classmethod
+    def validate_max_conversation_history(cls, v):
+        if v == '' or v is None:
+            return 50
+        return int(v) if isinstance(v, str) else v
+    
+    @field_validator('session_timeout', mode='before')
+    @classmethod
+    def validate_session_timeout(cls, v):
+        if v == '' or v is None:
+            return 3600
+        return int(v) if isinstance(v, str) else v
+    
+    @field_validator('max_search_results', mode='before')
+    @classmethod
+    def validate_max_search_results(cls, v):
+        if v == '' or v is None:
+            return 5
+        return int(v) if isinstance(v, str) else v
     
     # Logging
     log_level: str = "INFO"

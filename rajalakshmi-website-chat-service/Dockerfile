@@ -16,6 +16,12 @@ ENV PYTHONDONTWRITEBYTECODE=1
 # the application crashes without emitting any logs due to buffering.
 ENV PYTHONUNBUFFERED=1
 
+# Set default environment variables to prevent empty string issues
+ENV MAX_CONVERSATION_HISTORY=50
+ENV SESSION_TIMEOUT=3600
+ENV MAX_SEARCH_RESULTS=5
+ENV LOG_LEVEL=INFO
+
 WORKDIR /app
 
 # Create a non-privileged user that the app will run under.
