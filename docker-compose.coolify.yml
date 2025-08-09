@@ -134,6 +134,7 @@ services:
       SESSION_TIMEOUT: ${SESSION_TIMEOUT}
       MAX_SEARCH_RESULTS: ${MAX_SEARCH_RESULTS}
       LOG_LEVEL: ${LOG_LEVEL}
+      CORS_ORIGINS: ${CORS_ORIGINS}
     ports:
       - "8011:8001"
     depends_on:

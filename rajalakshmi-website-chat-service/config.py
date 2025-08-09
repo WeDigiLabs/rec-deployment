@@ -16,6 +16,9 @@ class ChatSettings(BaseSettings):
     session_timeout: int = 3600  # 1 hour
     max_search_results: int = 5
     
+    # CORS Configuration
+    cors_origins: str = "*"  # Comma-separated list of allowed origins
+    
     @field_validator('max_conversation_history', mode='before')
     @classmethod
     def validate_max_conversation_history(cls, v):
@@ -37,8 +40,21 @@ class ChatSettings(BaseSettings):
             return 5
         return int(v) if isinstance(v, str) else v
     
+    @field_validator('cors_origins', mode='before')
+    @classmethod
+    def validate_cors_origins(cls, v):
+        if v == '' or v is None:
+            return "*"
+        return v
+    
     # Logging
     log_level: str = "INFO"
+    
+    def get_cors_origins_list(self) -> list:
+        """Parse CORS origins string into a list"""
+        if self.cors_origins == "*":
+            return ["*"]
+        return [origin.strip() for origin in self.cors_origins.split(",") if origin.strip()]
     
     model_config = {
         "env_file": ".env",
