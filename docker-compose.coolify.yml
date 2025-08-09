@@ -49,11 +49,10 @@ services:
     build:
       context: ./rajalakshmi-website-cms
     environment:
-    NODE_ENV: ${NODE_ENV}
-    DATABASE_URI: ${DATABASE_URI}
-    PAYLOAD_SECRET: ${PAYLOAD_SECRET}
-    ADMIN_EMAIL: ${ADMIN_EMAIL}
-    ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+      DATABASE_URI: ${DATABASE_URI}
+      PAYLOAD_SECRET: ${PAYLOAD_SECRET}
+      ADMIN_EMAIL: ${ADMIN_EMAIL}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
     ports:
       - "3001:3000"
     volumes:
@@ -85,7 +84,6 @@ services:
       context: ./rajalakshmi-website
     env_file:
       environment:
-        NODE_ENV: ${NODE_ENV}
         NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
         NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL}
     ports:
