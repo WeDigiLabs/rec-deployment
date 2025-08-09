@@ -9,6 +9,7 @@ from models.chat_models import ChatRequest, ChatResponse, ConversationSummary
 from models.conversation import ConversationManager, MessageRole
 from services.rag_service import RAGService
 from services.llm_service import LLMService
+from config import settings
 
 # Configure logging
 logging.basicConfig(
@@ -35,7 +36,7 @@ app.add_middleware(
 
 # Initialize services
 conversation_manager = ConversationManager()
-rag_service = RAGService()
+rag_service = RAGService(vector_service_url=settings.vector_service_url)
 llm_service = LLMService()
 
 @app.post("/chat", response_model=ChatResponse)

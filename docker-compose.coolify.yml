@@ -1,5 +1,9 @@
 version: '3.8'
 
+networks:
+  coolify:
+    external: false
+
 services:
   # Vector DB Service
   qdrant:
@@ -10,21 +14,33 @@ services:
       - "6334:6334"
     volumes:
       - qdrant_storage:/qdrant/storage
+    networks:
+      - coolify
+    labels:
+      - "coolify.managed=true"
+      - "coolify.name=qdrant-vectordb"
+      - "coolify.service=qdrant"
 
   vector-server:
     build:
       context: ./rajalakshmi-vector-service
     depends_on:
       - qdrant
-    env_file:
-      environment:
-        QDRANT_URL: ${QDRANT_URL}
-        OPENAI_API_KEY: ${OPENAI_API_KEY}
-        OPENAI_BASE_URL: ${OPENAI_BASE_URL}
-        OPENAI_MODEL: ${OPENAI_MODEL}
-        SKIP_OPENAI_API_KEY_CHECK: ${SKIP_OPENAI_API_KEY}
+    environment:
+      QDRANT_URL: ${QDRANT_URL}
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      OPENAI_BASE_URL: ${OPENAI_BASE_URL}
+      OPENAI_MODEL: ${OPENAI_MODEL}
+      SKIP_OPENAI_API_KEY_CHECK: ${SKIP_OPENAI_API_KEY}
     ports:
       - "8000:8000"
+    restart: unless-stopped
+    networks:
+      - coolify
+    labels:
+      - "coolify.managed=true"
+      - "coolify.name=vector-processing-server"
+      - "coolify.service=vector-server"
 
   # Website CMS
   mongodb:
@@ -38,17 +54,24 @@ services:
       - "27018:27017"
     volumes:
       - mongodb_data:/data/db
+    networks:
+      - coolify
     healthcheck:
       test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
       interval: 10s
       timeout: 10s
       retries: 5
       start_period: 40s
+    labels:
+      - "coolify.managed=true"
+      - "coolify.name=mongodb-database"
+      - "coolify.service=mongodb"
 
   cms-app:
     build:
       context: ./rajalakshmi-website-cms
     environment:
+      NODE_ENV: ${NODE_ENV}
       DATABASE_URI: ${DATABASE_URI}
       PAYLOAD_SECRET: ${PAYLOAD_SECRET}
       ADMIN_EMAIL: ${ADMIN_EMAIL}
@@ -61,33 +84,75 @@ services:
       mongodb:
         condition: service_healthy
     restart: unless-stopped
+    networks:
+      - coolify
+    labels:
+      - "coolify.managed=true"
+      - "coolify.name=cms-application"
+      - "coolify.service=cms-app"
 
   # AI Chat Service
   ai-chat-server:
     build:
       context: ./rec-ai-chat
     environment:
-    NODE_ENV: ${NODE_ENV}
+      NODE_ENV: ${NODE_ENV}
+      NEXT_PUBLIC_CHAT_API_URL: ${NEXT_PUBLIC_CHAT_API_URL}
+      NEXT_PUBLIC_CHAT_API_TIMEOUT: ${NEXT_PUBLIC_CHAT_API_TIMEOUT}
     ports:
       - "3002:3002"
+    depends_on:
+      - website-chat-server
+    restart: unless-stopped
+    networks:
+      - coolify
+    labels:
+      - "coolify.managed=true"
+      - "coolify.name=ai-chat-frontend"
+      - "coolify.service=ai-chat-server"
 
   # Website Chat Service
   website-chat-server:
     build:
       context: ./rajalakshmi-website-chat-service
+    environment:
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      OPENAI_BASE_URL: ${OPENAI_BASE_URL}
+      CHAT_MODEL: ${CHAT_MODEL}
+      VECTOR_SERVICE_URL: ${VECTOR_SERVICE_URL}
+      MAX_CONVERSATION_HISTORY: ${MAX_CONVERSATION_HISTORY}
+      SESSION_TIMEOUT: ${SESSION_TIMEOUT}
+      MAX_SEARCH_RESULTS: ${MAX_SEARCH_RESULTS}
+      LOG_LEVEL: ${LOG_LEVEL}
     ports:
       - "8001:8001"
+    depends_on:
+      - vector-server
+    restart: unless-stopped
+    networks:
+      - coolify
+    labels:
+      - "coolify.managed=true"
+      - "coolify.name=chat-api-server"
+      - "coolify.service=website-chat-server"
 
   # Rajalakshmi Website (Next.js)
   website:
     build:
       context: ./rajalakshmi-website
-    env_file:
-      environment:
-        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
-        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL}
+    environment:
+      NODE_ENV: ${NODE_ENV}
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
+      NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL}
     ports:
       - "3000:3000"
+    restart: unless-stopped
+    networks:
+      - coolify
+    labels:
+      - "coolify.managed=true"
+      - "coolify.name=main-website"
+      - "coolify.service=website"
 
 volumes:
   qdrant_storage:
