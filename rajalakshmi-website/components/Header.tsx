@@ -6,6 +6,7 @@ import { Button, NavBar } from "./index";
 import { fetchFromApi } from "../lib/api";
 import SecondaryNavbar from "./SecondaryNavbar";
 
+
 type Department = {
   id: string;
   name: string;
@@ -16,18 +17,21 @@ type Department = {
   order: number;
 };
 
-const admissionDropdownOptions = [
-  { label: "UG Admissions", href: "/admissions/ug" },
-  { label: "PG Admissions", href: "/admissions/pg" },
-  { label: "Accelerated Masters", href: "/admissions/accelerated-masters" },
-  { label: "3+1 Programme", href: "/admissions/3plus1" },
-];
-const feeDropdownOptions = [
-  { label: "College Fee", href: "/fee/college" },
-  { label: "Exam Fee", href: "/fee/exam" },
-];
+type DropdownOption = {
+  label: string;
+  link: string;
+  isActive: boolean;
+  order: number;
+};
+
+
+// Fee Link dropdown options will be fetched from API
+
 
 const Header = () => {
+  const [admissionDropdownOptions, setAdmissionDropdownOptions] = useState<{ label: string; href: string }[]>([]);
+  const [feeDropdownOptions, setFeeDropdownOptions] = useState<{ label: string; href: string }[]>([]);
+
   const [departmentSubmenus, setDepartmentSubmenus] = useState<{ label: string; href: string }[]>([]);
   const [admissionDropdownOpen, setAdmissionDropdownOpen] = useState(false);
   const [feeDropdownOpen, setFeeDropdownOpen] = useState(false);
@@ -42,21 +46,60 @@ const Header = () => {
         const response = await fetchFromApi("/api/departments-nav");
         if (response?.success && response?.data) {
           const formattedDepartments = response.data
-            .sort((a: Department, b: Department) => a.order - b.order) // Sort by order field
+            .sort((a: Department, b: Department) => a.order - b.order)
             .map((dept: Department) => ({
               label: dept.name,
-              href: `/departments/${dept.slug}` // Using slug instead of shortName for better URL structure
+              href: `/departments/${dept.slug}`
             }));
           setDepartmentSubmenus(formattedDepartments);
         }
       } catch (error) {
         console.error('Failed to fetch departments:', error);
-        // Fallback to empty array if API fails
         setDepartmentSubmenus([]);
       }
     };
 
+    const fetchApplyNowOptions = async () => {
+      try {
+        const response = await fetchFromApi("/api/apply-now");
+        if (response?.docs) {
+          const formattedOptions = (response.docs as DropdownOption[])
+            .filter((item) => item.isActive)
+            .sort((a, b) => a.order - b.order)
+            .map((item) => ({
+              label: item.label,
+              href: item.link
+            }));
+          setAdmissionDropdownOptions(formattedOptions);
+        }
+      } catch (error) {
+        console.error('Failed to fetch Apply Now options:', error);
+        setAdmissionDropdownOptions([]);
+      }
+    };
+
+    const fetchFeeLinkOptions = async () => {
+      try {
+        const response = await fetchFromApi("/api/fee-link");
+        if (response?.docs) {
+          const formattedOptions = (response.docs as DropdownOption[])
+            .filter((item) => item.isActive)
+            .sort((a, b) => a.order - b.order)
+            .map((item) => ({
+              label: item.label,
+              href: item.link
+            }));
+          setFeeDropdownOptions(formattedOptions);
+        }
+      } catch (error) {
+        console.error('Failed to fetch Fee Link options:', error);
+        setFeeDropdownOptions([]);
+      }
+    };
+
     fetchDepartments();
+    fetchApplyNowOptions();
+    fetchFeeLinkOptions();
   }, []);
 
   const navItems = useMemo(() => [
@@ -154,18 +197,22 @@ const Header = () => {
             >
               {/* Pointer Arrow */}
               <div className="absolute top-0 right-6 w-3 h-3 bg-white border-t border-l border-[#6A1B9A]/20 rotate-45 -translate-y-1/2 z-10"></div>
-              {admissionDropdownOptions.map((option) => (
-                <button
-                  key={option.label}
-                  onClick={() => window.location.href = option.href}
-                  className="block w-full text-left px-5 py-2 text-sm text-[#6A1B9A] hover:bg-[#F3E8FF] hover:text-[#5A1582] rounded-lg transition-all duration-150 font-medium"
-                  role="menuitem"
-                  tabIndex={0}
-                  type="button"
-                >
-                  {option.label}
-                </button>
-              ))}
+              {admissionDropdownOptions.length === 0 ? (
+                <div className="px-5 py-2 text-sm text-gray-400">No options available</div>
+              ) : (
+                admissionDropdownOptions.map((option) => (
+                  <button
+                    key={option.label}
+                    onClick={() => window.open(option.href, '_blank')}
+                    className="block w-full text-left px-5 py-2 text-sm text-[#6A1B9A] hover:bg-[#F3E8FF] hover:text-[#5A1582] rounded-lg transition-all duration-150 font-medium"
+                    role="menuitem"
+                    tabIndex={0}
+                    type="button"
+                  >
+                    {option.label}
+                  </button>
+                ))
+              )}
             </div>
           </div>
           {/* Fee Link Button with Dropdown */}
@@ -197,18 +244,22 @@ const Header = () => {
             >
               {/* Pointer Arrow */}
               <div className="absolute top-0 right-6 w-3 h-3 bg-white border-t border-l border-[#6A1B9A]/20 rotate-45 -translate-y-1/2 z-10"></div>
-              {feeDropdownOptions.map((option) => (
-                <button
-                  key={option.label}
-                  onClick={() => window.location.href = option.href}
-                  className="block w-full text-left px-5 py-2 text-sm text-[#6A1B9A] hover:bg-[#F3E8FF] hover:text-[#5A1582] rounded-lg transition-all duration-150 font-medium"
-                  role="menuitem"
-                  tabIndex={0}
-                  type="button"
-                >
-                  {option.label}
-                </button>
-              ))}
+              {feeDropdownOptions.length === 0 ? (
+                <div className="px-5 py-2 text-sm text-gray-400">No options available</div>
+              ) : (
+                feeDropdownOptions.map((option) => (
+                  <button
+                    key={option.label}
+                    onClick={() => window.open(option.href, '_blank')}
+                    className="block w-full text-left px-5 py-2 text-sm text-[#6A1B9A] hover:bg-[#F3E8FF] hover:text-[#5A1582] rounded-lg transition-all duration-150 font-medium"
+                    role="menuitem"
+                    tabIndex={0}
+                    type="button"
+                  >
+                    {option.label}
+                  </button>
+                ))
+              )}
             </div>
           </div>
         </div>

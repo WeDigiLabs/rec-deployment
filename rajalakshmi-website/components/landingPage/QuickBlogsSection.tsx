@@ -43,13 +43,13 @@ async function fetchBlogs() {
 export default async function QuickBlogsSection() {
   const blogs = await fetchBlogs();
 
+  if (!blogs || blogs.length === 0) {
+    return null;
+  }
+
   return (
     <section className="py-4 sm:py-6 md:py-8 px-4 sm:px-6 md:px-4 bg-[#FAFAFA]">
-      {blogs.length > 0 ? (
-        <QuickBlogSection blogs={blogs} />
-      ) : (
-        <div className="text-center py-8">No blogs available.</div>
-      )}
+      <QuickBlogSection blogs={blogs} />
     </section>
   );
 }

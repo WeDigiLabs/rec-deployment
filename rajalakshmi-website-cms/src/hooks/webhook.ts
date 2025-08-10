@@ -106,6 +106,8 @@ export const homeSliderWebhook = createWebhookHook('home-slider')
 export const mediaWebhook = createWebhookHook('media')
 export const admissionsWebhook = createWebhookHook('admissions')
 export const usersWebhook = createWebhookHook('users')
+export const applyNowWebhook = createWebhookHook('apply-now')
+export const feeLinkWebhook = createWebhookHook('fee-link')
 
 // Export webhook hooks for globals
 export const aboutGlobalWebhook = createGlobalWebhookHook('about')

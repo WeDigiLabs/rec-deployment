@@ -35,6 +35,8 @@ import { secondaryNavEndpoint } from './endpoints/secondaryNav'
 import { Academics } from './globals/Academics'
 import { Facilities } from './globals/Facilities'
 import { Alumini } from './globals/Alumini'
+import { ApplyNow } from './collections/ApplyNow'
+import { FeeLink } from './collections/FeeLink'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -51,7 +53,7 @@ export default buildConfig({
       description: 'Content Management System for Rajalakshmi Engineering College',
     },
   },
-  collections: [Users, Media, Announcements, HomeSlider, BlogPosts, Testimonials, COE, COECategories, Departments, DepartmentSections, SecondaryNav, DynamicPages],
+  collections: [Users, Media, Announcements, HomeSlider, BlogPosts, Testimonials, COE, COECategories, Departments, DepartmentSections, SecondaryNav, DynamicPages, ApplyNow, FeeLink],
   globals: [About, Admissions, Research, Placement, InternationalRelations, Academics, StudentLife, Regulations, Facilities, Alumini],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',

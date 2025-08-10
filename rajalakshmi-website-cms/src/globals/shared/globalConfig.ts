@@ -145,7 +145,7 @@ export const createGlobalSectionFields = (): Field[] => [
   {
     name: 'title',
     type: 'text',
-    required: true,
+    required: false,
     admin: {
       description: 'Title of the section',
     },
@@ -193,7 +193,7 @@ export const createGlobalSectionFields = (): Field[] => [
       {
         name: 'label',
         type: 'text',
-        required: true,
+        required: false,
         admin: {
           description: 'Display text for the table row',
         },
@@ -201,7 +201,7 @@ export const createGlobalSectionFields = (): Field[] => [
       {
         name: 'link',
         type: 'text',
-        required: true,
+        required: false,
         admin: {
           description: 'URL or file path for the link',
         },
@@ -257,12 +257,12 @@ export const createGlobalSectionFields = (): Field[] => [
         name: 'columns',
         type: 'array',
         label: 'Table Columns',
-        required: true,
+        required: false,
         fields: [
           {
             name: 'key',
             type: 'text',
-            required: true,
+            required: false,
             admin: {
               description: 'Unique identifier for this column (no spaces, use camelCase)',
             },
@@ -270,7 +270,7 @@ export const createGlobalSectionFields = (): Field[] => [
           {
             name: 'label',
             type: 'text',
-            required: true,
+            required: false,
             admin: {
               description: 'Display label for the column header',
             },
@@ -288,7 +288,7 @@ export const createGlobalSectionFields = (): Field[] => [
         name: 'rows',
         type: 'array',
         label: 'Table Rows',
-        required: true,
+        required: false,
         admin: {
           description: 'Add rows to your table. Each row should have data for all columns.',
         },
@@ -297,7 +297,7 @@ export const createGlobalSectionFields = (): Field[] => [
             name: 'rowData',
             type: 'array',
             label: 'Row Cells',
-            required: true,
+            required: false,
             admin: {
               description: 'Add data for each column in this row. Make sure to add cells in the same order as your columns.',
             },
@@ -305,7 +305,7 @@ export const createGlobalSectionFields = (): Field[] => [
               {
                 name: 'columnKey',
                 type: 'text',
-                required: true,
+                required: false,
                 admin: {
                   description: 'Column key (should match one of your column keys above)',
                   placeholder: 'e.g., name, email, department',
@@ -314,7 +314,7 @@ export const createGlobalSectionFields = (): Field[] => [
               {
                 name: 'value',
                 type: 'text',
-                required: true,
+                required: false,
                 admin: {
                   description: 'Cell content/value',
                   placeholder: 'Enter the cell content',
@@ -414,12 +414,12 @@ export const createGlobalSectionFields = (): Field[] => [
         name: 'columns',
         type: 'array',
         label: 'Table Columns',
-        required: true,
+        required: false,
         fields: [
           {
             name: 'key',
             type: 'text',
-            required: true,
+            required: false,
             admin: {
               description: 'Unique identifier for this column (no spaces, use camelCase)',
             },
@@ -427,7 +427,7 @@ export const createGlobalSectionFields = (): Field[] => [
           {
             name: 'label',
             type: 'text',
-            required: true,
+            required: false,
             admin: {
               description: 'Display label for the column header',
             },
@@ -445,7 +445,7 @@ export const createGlobalSectionFields = (): Field[] => [
         name: 'rows',
         type: 'array',
         label: 'Table Rows',
-        required: true,
+        required: false,
         admin: {
           description: 'Add rows to your table. Each row should have data for all columns.',
         },
@@ -454,7 +454,7 @@ export const createGlobalSectionFields = (): Field[] => [
             name: 'rowData',
             type: 'array',
             label: 'Row Cells',
-            required: true,
+            required: false,
             admin: {
               description: 'Add data for each column in this row. Make sure to add cells in the same order as your columns.',
             },
@@ -462,7 +462,7 @@ export const createGlobalSectionFields = (): Field[] => [
               {
                 name: 'columnKey',
                 type: 'text',
-                required: true,
+                required: false,
                 admin: {
                   description: 'Column key (should match one of your column keys above)',
                   placeholder: 'e.g., name, email, department',
@@ -471,7 +471,7 @@ export const createGlobalSectionFields = (): Field[] => [
               {
                 name: 'value',
                 type: 'text',
-                required: true,
+                required: false,
                 admin: {
                   description: 'Cell content/value',
                   placeholder: 'Enter the cell content',
