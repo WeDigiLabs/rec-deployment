@@ -37,6 +37,24 @@ RUN --mount=type=bind,source=package.json,target=package.json \
 # Create a stage for building the application.
 FROM deps as build
 
+# Accept build arguments for Next.js public environment variables
+ARG NEXT_PUBLIC_API_BASE_URL
+ARG NEXT_PUBLIC_CMS_API_URL
+ARG NEXT_PUBLIC_CHAT_API_URL
+ARG NEXT_PUBLIC_CHAT_API_TIMEOUT
+ARG NEXT_PUBLIC_SITE_URL
+ARG NEXT_PUBLIC_API_URL
+ARG NODE_ENV
+
+# Set environment variables from build args
+ENV NEXT_PUBLIC_API_BASE_URL=$NEXT_PUBLIC_API_BASE_URL
+ENV NEXT_PUBLIC_CMS_API_URL=$NEXT_PUBLIC_CMS_API_URL
+ENV NEXT_PUBLIC_CHAT_API_URL=$NEXT_PUBLIC_CHAT_API_URL
+ENV NEXT_PUBLIC_CHAT_API_TIMEOUT=$NEXT_PUBLIC_CHAT_API_TIMEOUT
+ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+ENV NODE_ENV=$NODE_ENV
+
 # Download additional development dependencies before building, as some projects require
 # "devDependencies" to be installed to build. If you don't need this, remove this step.
 RUN --mount=type=bind,source=package.json,target=package.json \
@@ -46,8 +64,8 @@ RUN --mount=type=bind,source=package.json,target=package.json \
 
 # Copy the rest of the source files into the image.
 COPY . .
-# Ensure env files and static assets are included
-COPY .env* ./
+# Don't copy .env files in production - use build args instead
+# COPY .env* ./
 COPY public ./public
 COPY next.config.ts ./next.config.ts
 COPY postcss.config.mjs ./postcss.config.mjs
@@ -89,7 +107,8 @@ COPY --from=build /usr/src/app/contexts ./contexts
 COPY --from=build /usr/src/app/lib ./lib
 COPY --from=build /usr/src/app/types ./types
 COPY --from=build /usr/src/app/tsconfig.json ./tsconfig.json
-COPY --from=build /usr/src/app/.env* ./
+# Don't copy .env files in production
+# COPY --from=build /usr/src/app/.env* ./
 
 
 # Expose the port that the application listens on.
