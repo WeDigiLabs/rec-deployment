@@ -16,7 +16,7 @@ export function getApiConfig(): ApiConfig {
   const isProduction = !isLocal;
 
   // Log configuration in development
-  if (process.env.NODE_ENV === 'development') {
+  if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'production') {
     console.log('API Configuration:', {
       baseUrl,
       isLocal,
