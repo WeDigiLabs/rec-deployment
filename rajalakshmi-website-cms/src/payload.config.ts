@@ -61,28 +61,32 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
   }),
-  cors: [
-    'http://localhost:3000', 
-    'http://localhost:3001', 
-    'http://localhost:5173', 
-    'http://localhost:4200',
-    'http://localhost:8000',
-    'https://reccms.flashserver.in',
-    'https://cmsrec.flashserver.in',
-    'https://recwebsite.flashserver.in',
-    'https://rajalakshmi-website.vercel.app',
-  ],
-  csrf: [
-    'http://localhost:3000',
-    'http://localhost:3001', 
-    'http://localhost:5173',
-    'http://localhost:4200',
-    'http://localhost:8000',
-    'https://reccms.flashserver.in',
-    'https://cmsrec.flashserver.in',
-    'https://recwebsite.flashserver.in',
-    'https://rajalakshmi-website.vercel.app',
-  ],
+  cors: process.env.PAYLOAD_CORS_ORIGINS 
+    ? process.env.PAYLOAD_CORS_ORIGINS.split(',').map(origin => origin.trim())
+    : [
+        'http://localhost:3000', 
+        'http://localhost:3001', 
+        'http://localhost:5173', 
+        'http://localhost:4200',
+        'http://localhost:8000',
+        'https://reccms.flashserver.in',
+        'https://cmsrec.flashserver.in',
+        'https://recwebsite.flashserver.in',
+        'https://rajalakshmi-website.vercel.app',
+      ],
+  csrf: process.env.PAYLOAD_CSRF_ORIGINS 
+    ? process.env.PAYLOAD_CSRF_ORIGINS.split(',').map(origin => origin.trim())
+    : [
+        'http://localhost:3000',
+        'http://localhost:3001', 
+        'http://localhost:5173',
+        'http://localhost:4200',
+        'http://localhost:8000',
+        'https://reccms.flashserver.in',
+        'https://cmsrec.flashserver.in',
+        'https://recwebsite.flashserver.in',
+        'https://rajalakshmi-website.vercel.app',
+      ],
   sharp,
   plugins: [
     payloadCloudPlugin(),
