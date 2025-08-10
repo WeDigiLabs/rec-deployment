@@ -5,7 +5,7 @@ export interface PageSource {
   collection: 'globals' | 'dynamic-pages';
 }
 
-interface HeroImage {
+export interface HeroImage {
   id: string;
   alt?: string;
   filename?: string;
@@ -17,7 +17,7 @@ interface HeroImage {
   thumbnailURL?: string;
 }
 
-interface SEOData {
+export interface SEOData {
   metaTitle?: string;
   metaDescription?: string;
   keywords?: string;

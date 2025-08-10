@@ -7,7 +7,7 @@ __pycache__/
 .env
 venv/
 *.egg-info/
-
+*.md
 # Node.js
 node_modules/
 pnpm-lock.yaml

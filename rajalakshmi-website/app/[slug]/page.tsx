@@ -9,7 +9,7 @@ import { VerticalListing } from "@/components";
 import LinkTable from "@/components/LinkTable";
 import DynamicTable from "@/components/DynamicTable";
 import Title from "@/components/Title"; // Import the Title component
-import { normalizePageResponse } from "@/lib/unified-page-utils";
+import { normalizePageResponse, extractSEOMetadata, SEOData, HeroImage } from "@/lib/unified-page-utils";
 import YouTubeEmbed, { isYouTubeUrl } from "@/components/YouTubeEmbed";
 
 interface RichTextChild {
@@ -148,18 +148,6 @@ interface GlobalSection {
   image?: SectionImage;
 }
 
-interface HeroImage {
-  id: string;
-  alt?: string;
-  filename?: string;
-  mimeType?: string;
-  filesize?: number;
-  width?: number;
-  height?: number;
-  url?: string;
-  thumbnailURL?: string;
-}
-
 interface GlobalPageData {
   id: string;
   createdAt: string;
@@ -169,8 +157,15 @@ interface GlobalPageData {
   heroSubtitle?: string;
   heroImage?: HeroImage;
   sections: GlobalSection[];
-  pageType?: "global" | "dynamic";
-  source?: "globals" | "dynamic-pages";
+  seo?: SEOData;
+  pageType: "global" | "dynamic";
+  source: "globals" | "dynamic-pages";
+  priority?: number;
+  category?: string;
+  pageTitle?: string;
+  title?: string;
+  slug?: string;
+  [key: string]: unknown;
 }
 
 // Rich text renderer component
@@ -959,6 +954,60 @@ export default function GlobalPage() {
 
     fetchPageData();
   }, [slug]);
+
+  // Handle SEO metadata updates
+  useEffect(() => {
+    if (globalData) {
+      const seoData = extractSEOMetadata(globalData);
+      
+      // Update document title
+      document.title = seoData.title || 'Rajalakshmi Engineering College';
+      
+      // Update meta description
+      const metaDescription = document.querySelector('meta[name="description"]');
+      if (metaDescription) {
+        metaDescription.setAttribute('content', seoData.description || '');
+      } else if (seoData.description) {
+        const meta = document.createElement('meta');
+        meta.name = 'description';
+        meta.content = seoData.description;
+        document.head.appendChild(meta);
+      }
+      
+      // Update meta keywords
+      const metaKeywords = document.querySelector('meta[name="keywords"]');
+      if (metaKeywords) {
+        metaKeywords.setAttribute('content', seoData.keywords || '');
+      } else if (seoData.keywords) {
+        const meta = document.createElement('meta');
+        meta.name = 'keywords';
+        meta.content = seoData.keywords;
+        document.head.appendChild(meta);
+      }
+
+      // Update Open Graph meta tags
+      const updateOrCreateMetaTag = (property: string, content: string) => {
+        let metaTag = document.querySelector(`meta[property="${property}"]`);
+        if (metaTag) {
+          metaTag.setAttribute('content', content);
+        } else {
+          metaTag = document.createElement('meta');
+          metaTag.setAttribute('property', property);
+          metaTag.setAttribute('content', content);
+          document.head.appendChild(metaTag);
+        }
+      };
+
+      updateOrCreateMetaTag('og:title', seoData.title || 'Rajalakshmi Engineering College');
+      if (seoData.description) {
+        updateOrCreateMetaTag('og:description', seoData.description);
+      }
+      updateOrCreateMetaTag('og:type', 'website');
+      if (seoData.ogImage?.url) {
+        updateOrCreateMetaTag('og:image', getImageUrl(seoData.ogImage.url));
+      }
+    }
+  }, [globalData]);
 
   const handleSectionClick = (sectionId: string | number) => {
     const id = String(sectionId);
