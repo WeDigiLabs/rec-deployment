@@ -4,7 +4,6 @@ import "./globals.css";
 import Header from "../components/Header";
 import EllipseBg from "@/components/icons/EllipseBg";
 import Footer from "@/components/Footer";
-import DebugEnv from "@/components/DebugEnv";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -35,7 +34,6 @@ export default function RootLayout({
           </div>
           {children}
           <Footer />
-          <DebugEnv />
         </div>
       </body>
     </html>
