@@ -669,7 +669,16 @@ export default function DepartmentPage() {
   function getImageUrl(url: string | undefined): string {
     if (!url) return "";
     if (url.startsWith('http')) return url;
-    return `${process.env.NEXT_PUBLIC_API_BASE_URL}${url}`;
+    
+    const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+    console.log('[DEPARTMENTS PAGE] Image URL generation:', {
+      baseUrl,
+      inputUrl: url,
+      finalUrl: `${baseUrl}${url}`,
+      hasBaseUrl: !!baseUrl
+    });
+    
+    return `${baseUrl}${url}`;
   }
 
   // Component to render dynamic section content

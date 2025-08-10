@@ -7,6 +7,15 @@ import TestimonialsSection from "@/components/landingPage/TestimonialsSection";
 import StatsSection from "@/components/landingPage/Stats";
 
 export default function LandingPage() {
+  // Server-side logging
+  console.log('[HOME PAGE - SERVER] Environment variables on server:', {
+    NEXT_PUBLIC_API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL,
+    NEXT_PUBLIC_CMS_API_URL: process.env.NEXT_PUBLIC_CMS_API_URL,
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
+    NODE_ENV: process.env.NODE_ENV,
+    timestamp: new Date().toISOString(),
+  });
+
   const stats = [
     { value: "25+", label: "Years of Excellence" },
     { value: "10,000+", label: "Students Enrolled" },

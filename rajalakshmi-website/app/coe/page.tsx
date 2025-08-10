@@ -50,8 +50,17 @@ export default function COE() {
             grouped[category] = [];
           }
 
+          // Log PDF URL generation
+          const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://reccms.flashserver.in';
+          console.log('[COE PAGE] PDF URL generation:', {
+            baseUrl,
+            pdfFileUrl: item.pdfFile.url,
+            fullUrl: `${baseUrl}${item.pdfFile.url}`,
+            usingFallback: baseUrl === 'https://reccms.flashserver.in'
+          });
+
           grouped[category].push({
-            href: `${process.env.NEXT_PUBLIC_API_BASE_URL || 'https://reccms.flashserver.in'}${item.pdfFile.url}`,
+            href: `${baseUrl}${item.pdfFile.url}`,
             title: item.title,
             subtitle: category,
             icon: <FileText className="w-5 h-5" />,

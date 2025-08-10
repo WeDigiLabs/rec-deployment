@@ -1,7 +1,21 @@
+// Log environment variables for debugging
+console.log('[API.TS] Environment variables:', {
+  NEXT_PUBLIC_API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL,
+  NEXT_PUBLIC_CMS_API_URL: process.env.NEXT_PUBLIC_CMS_API_URL,
+  NODE_ENV: process.env.NODE_ENV,
+});
+
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://reccms.flashserver.in';
+
+// Log the resolved API base URL
+console.log('[API.TS] Resolved API_BASE:', API_BASE);
+console.log('[API.TS] Using fallback URL:', API_BASE === 'https://reccms.flashserver.in');
 
 export async function fetchFromApi(endpoint: string, options: RequestInit = {}) {
   const url = `${API_BASE}${endpoint}`;
+  
+  // Log every API request
+  console.log('[API.TS] Making API request to:', url);
   
   try {
     const res = await fetch(url, {
