@@ -7,7 +7,7 @@ class ChatAPIService {
 
   constructor() {
     this.baseURL = process.env.NEXT_PUBLIC_CHAT_API_URL || 'http://localhost:8001';
-    this.timeout = parseInt(process.env.NEXT_PUBLIC_CHAT_API_TIMEOUT || '30000');
+    this.timeout = parseInt(process.env.NEXT_PUBLIC_CHAT_API_TIMEOUT || '3000000');
   }
 
   private get axiosInstance() {

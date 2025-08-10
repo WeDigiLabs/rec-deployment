@@ -59,33 +59,51 @@ const AnswerContent: React.FC<AnswerContentProps> = ({ question, isMobile, apiRe
   // If we have an API response, use the ApiAnswerContent component
   if (apiResponse) {
     return (
-      <ApiAnswerContent
-        question={question}
-        answer={apiResponse.message}
-        sources={apiResponse.sources}
-        isMobile={isMobile}
-        isLoading={false}
-      />
+      <div
+        className={
+          isMobile
+            ? "w-full max-w-2xl mx-auto mt-6 text-[#22282B] px-2 py-2 overflow-y-auto max-h-[60vh]"
+            : "w-full max-w-5xl mx-auto text-[#22282B] px-6 flex flex-col items-center justify-start pt-2"
+        }
+        style={{ wordBreak: 'break-word' }}
+      >
+        <ApiAnswerContent
+          question={question}
+          answer={apiResponse.message}
+          sources={apiResponse.sources}
+          isMobile={isMobile}
+          isLoading={false}
+        />
+      </div>
     );
   }
 
   // If loading, show the loading state
   if (isLoading) {
     return (
-      <ApiAnswerContent
-        question={question}
-        answer=""
-        sources={[]}
-        isMobile={isMobile}
-        isLoading={true}
-      />
+      <div
+        className={
+          isMobile
+            ? "w-full max-w-2xl mx-auto mt-6 text-[#22282B] px-2 py-2 overflow-y-auto max-h-[60vh]"
+            : "w-full max-w-5xl mx-auto text-[#22282B] px-6 flex flex-col items-center justify-start pt-2"
+        }
+        style={{ wordBreak: 'break-word' }}
+      >
+        <ApiAnswerContent
+          question={question}
+          answer=""
+          sources={[]}
+          isMobile={isMobile}
+          isLoading={true}
+        />
+      </div>
     );
   }
 
   // Fallback to static content for FAQ questions
   if (isMobile) {
     return (
-      <div className="w-full max-w-2xl mx-auto mt-6 text-[#22282B] px-6 py-4">
+      <div className="w-full max-w-2xl mx-auto mt-6 text-[#22282B] px-6 py-4 overflow-y-auto max-h-[60vh]" style={{ wordBreak: 'break-word' }}>
         <h2 className="text-2xl font-bold border-b border-gray-600 pb-2 mb-3">
           {question}
         </h2>
@@ -101,8 +119,8 @@ const AnswerContent: React.FC<AnswerContentProps> = ({ question, isMobile, apiRe
   }
 
   return (
-    <div className="w-full max-w-5xl mx-auto text-[#22282B] px-6 flex flex-col items-center justify-center">
-      {/* Desktop layout - center aligned */}
+    <div className="w-full max-w-5xl mx-auto text-[#22282B] px-6 flex flex-col items-center justify-start pt-2" style={{ wordBreak: 'break-word' }}>
+      {/* Desktop layout - top aligned */}
       <div className="flex items-start gap-6 w-full max-w-4xl">
         <div className="flex-shrink-0">
           <Mascot size="small" className="z-0" />
@@ -343,17 +361,13 @@ const DesktopHeader: React.FC<{ onExit: () => void }> = ({ onExit }) => (
     <div className="w-full max-w-7xl mx-auto flex flex-col md:items-center md:justify-center">
       <div className="relative w-full flex flex-col items-center">
         {/* Badges - responsive positioning */}
-        <div className="hidden xl:flex absolute right-40 top-0 flex-col items-end gap-2">
-          <Image src="/assets/ariia.png" alt="ARIIA Badge" width={152} height={152} className="w-[120px] h-[120px] xl:w-[150px] xl:h-[150px] object-contain" />
-        </div>
+      
         <div className="hidden xl:flex absolute right-0 top-0 flex-col items-end gap-2">
           <Image src="/assets/logo.png" alt="College Logo" width={152} height={152} className="w-[120px] h-[120px] xl:w-[150px] xl:h-[150px] object-contain" />
         </div>
 
         {/* Badges for medium screens */}
-        <div className="hidden lg:flex xl:hidden absolute right-20 top-0 flex-col items-end gap-2">
-          <Image src="/assets/ariia.png" alt="ARIIA Badge" width={100} height={100} className="w-[100px] h-[100px] object-contain" />
-        </div>
+   
         <div className="hidden lg:flex xl:hidden absolute right-0 top-0 flex-col items-end gap-2">
           <Image src="/assets/logo.png" alt="College Logo" width={100} height={100} className="w-[100px] h-[100px] object-contain" />
         </div>
@@ -491,7 +505,7 @@ const MobileLayout: React.FC<{
   handleFaqSelect: (faq: string) => void;
   handleSubmit: () => void;
 }> = ({ question, setQuestion, submittedQuestion, submitted, apiResponse, isLoading, error, handleFaqSelect, handleSubmit }) => (
-  <div className="min-h-screen overflow-y-auto flex flex-col justify-between bg-gradient-to-b from-white to-purple-100 px-4 pt-4 font-[Montserrat]">
+  <div className="min-h-screen flex flex-col justify-between bg-gradient-to-b from-white to-purple-100 px-4 pt-4 font-[Montserrat]">
     {/* Header */}
     <div className="text-center">
       <h1 className="text-2xl font-semibold text-gray-800">REC Chat AI</h1>
@@ -500,23 +514,25 @@ const MobileLayout: React.FC<{
     </div>
 
     {/* Content */}
-    {submitted ? (
-      <>
-        <AnswerContent 
-          question={submittedQuestion} 
-          isMobile={true} 
-          apiResponse={apiResponse}
-          isLoading={isLoading}
-        />
-        {error && (
-          <div className="mx-6 mt-4 p-3 bg-red-100 border border-red-300 rounded-lg">
-            <p className="text-red-700 text-sm">{error}</p>
-          </div>
-        )}
-      </>
-    ) : (
-      <WelcomeContent isMobile={true} />
-    )}
+    <div className="flex-1 overflow-y-auto">
+      {submitted ? (
+        <>
+          <AnswerContent 
+            question={submittedQuestion} 
+            isMobile={true} 
+            apiResponse={apiResponse}
+            isLoading={isLoading}
+          />
+          {error && (
+            <div className="mx-6 mt-4 p-3 bg-red-100 border border-red-300 rounded-lg">
+              <p className="text-red-700 text-sm">{error}</p>
+            </div>
+          )}
+        </>
+      ) : (
+        <WelcomeContent isMobile={true} />
+      )}
+    </div>
 
     {/* Footer */}
     <div className="flex flex-col items-center w-full gap-4 mt-auto pt-6">
@@ -560,16 +576,17 @@ const DesktopLayout: React.FC<{
   }
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-purple-100 via-white to-purple-200 font-[Montserrat] overflow-x-hidden">
-      <Globe className="hidden lg:block absolute bottom-0 left-0 z-0" />
-      <DesktopHeader onExit={handleExit} />
+    <div className="relative min-h-screen bg-gradient-to-br from-purple-100 via-white to-purple-200 overflow-x-hidden">
+      <Globe className="hidden xl:block absolute bottom-0 left-0 z-0" />
       <BackgroundStars />
-      
-      <div className="relative z-10 flex flex-col px-4 lg:px-8">
-        {/* Main Content Area */}
-        <div className="flex flex-col items-center w-full max-w-6xl mx-auto pt-4">
-          {/* Content Section */}
-          <div className="flex flex-col justify-center items-center w-full max-w-5xl" style={{ minHeight: 'calc(100vh - 400px)' }}>
+      <div className="relative z-10 grid grid-rows-[auto,1fr,auto] h-screen max-h-screen">
+        {/* Header */}
+        <div className="px-3 sm:px-4 lg:px-6 xl:px-8">
+          <DesktopHeader onExit={handleExit} />
+        </div>
+        {/* Scrollable content */}
+        <div className="relative px-3 sm:px-4 lg:px-6 xl:px-8 overflow-y-auto scrollbar-thin scrollbar-thumb-purple-300/70 scrollbar-track-transparent">
+          <div className={`w-full max-w-7xl mx-auto flex flex-col items-center ${submitted ? 'pt-2 sm:pt-4' : 'justify-center h-full'}`}> 
             {submitted ? (
               <>
                 <AnswerContent 
@@ -579,8 +596,8 @@ const DesktopLayout: React.FC<{
                   isLoading={isLoading}
                 />
                 {error && (
-                  <div className="mt-6 p-4 bg-red-100 border border-red-300 rounded-lg max-w-4xl w-full">
-                    <p className="text-red-700">{error}</p>
+                  <div className="mt-4 sm:mt-6 p-3 sm:p-4 bg-red-100 border border-red-300 rounded-lg max-w-5xl w-full mx-auto">
+                    <p className="text-red-700 text-sm sm:text-base">{error}</p>
                   </div>
                 )}
               </>
@@ -588,10 +605,11 @@ const DesktopLayout: React.FC<{
               <WelcomeContent isMobile={false} />
             )}
           </div>
-          
-          {/* Input + FAQ Section - Always visible at bottom */}
-          <div className="w-full max-w-4xl pb-8 ">
-            <div className="mb-6">
+        </div>
+        {/* Footer */}
+        <div className="px-3 sm:px-4 lg:px-6 xl:px-8">
+          <div className="w-full max-w-5xl mx-auto pb-3 sm:pb-5 lg:pb-6 pt-2 border-t border-purple-200/60 backdrop-blur-sm bg-white/40 rounded-t-xl">
+            <div className="mb-3 sm:mb-4">
               <ChatInput
                 question={question}
                 onQuestionChange={setQuestion}
@@ -600,7 +618,7 @@ const DesktopLayout: React.FC<{
                 className="w-full"
               />
             </div>
-            <div className="mb-4">
+            <div className="mb-1 sm:mb-2">
               <ChatFAQ onSelect={handleFaqSelect} />
             </div>
           </div>
@@ -642,7 +660,7 @@ export default function Chat() {
       </div>
 
       {/* Desktop Layout */}
-      <div className="hidden md:block h-screen w-screen overflow-hidden font-[Montserrat]">
+  <div className="hidden md:block w-screen font-[Montserrat]">
         <DesktopLayout
           question={question}
           setQuestion={setQuestion}
