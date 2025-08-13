@@ -144,6 +144,10 @@ const Header = () => {
     }, 200); // 200ms delay
   };
 
+  const handleChatWithAadhi = () => {
+    window.open('http://localhost:3001', '_blank', 'width=1200,height=800,scrollbars=yes,resizable=yes');
+  };
+
   // Cleanup timeouts on unmount
   useEffect(() => {
     return () => {
@@ -277,6 +281,15 @@ const Header = () => {
         <div className="flex items-center gap-1.5 sm:gap-2 lg:gap-3 min-w-[140px] sm:min-w-[160px] lg:min-w-[180px] xl:min-w-[200px] justify-end">
           <Button variant="transparent" size="sm" className="border border-[#6A1B9A] shadow-lg text-[#6A1B9A] font-semibold whitespace-nowrap flex items-center gap-2 px-4 py-2 rounded-xl hover:bg-[#f3eaff] transition-all duration-200">Admission</Button>
           <Button variant="transparent" size="sm" className="border border-[#6A1B9A] shadow-lg text-[#6A1B9A] font-semibold whitespace-nowrap flex items-center gap-2 px-4 py-2 rounded-xl hover:bg-[#f3eaff] transition-all duration-200">Fee Link</Button>
+          <Button 
+            variant="transparent" 
+            size="sm" 
+            onClick={handleChatWithAadhi}
+            className="bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-semibold whitespace-nowrap flex items-center gap-2 px-4 py-2 rounded-xl hover:from-purple-600 hover:to-indigo-600 transition-all duration-200 shadow-lg relative overflow-hidden group"
+          >
+            🤖 Aadhi
+            <div className="absolute top-0 right-0 w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+          </Button>
         </div>
       </div>
       {/* MD only: moreItemsCount=5 */}

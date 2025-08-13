@@ -102,7 +102,7 @@ const Announcements: React.FC<AnnouncementsProps> = ({
             preload="metadata"
             poster="/assets/landing-page/video-poster.jpg"
           >
-            <source src="/assets/landing-page/rec_admissionsOpen.mp4" type="video/mp4" />
+            <source src="/assets/landing-page/rec_admissiosnsOpen.mp4" type="video/mp4" />
             <source src="/assets/landing-page/rec_admissionsOpen.webm" type="video/webm" />
             Your browser does not support the video tag.
           </video>

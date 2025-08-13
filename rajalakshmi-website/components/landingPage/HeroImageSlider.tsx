@@ -1,6 +1,7 @@
 import ImageSlider from "./ImageSlider";
 import { fetchFromApi, getImageUrl } from "@/lib/api";
 import HeroButtons from "./HeroButtons";
+import { cache } from 'react';
 
 interface SliderItem {
   id: string;
@@ -16,7 +17,8 @@ interface SliderFormattedItem {
   alt: string;
 }
 
-async function fetchSliderData() {
+// Cache the slider data fetch for the duration of the request
+const fetchSliderData = cache(async () => {
   try {
     const data = await fetchFromApi("/api/home-slider?where[isActive][equals]=true&sort=order");
     const formattedSlides = data?.docs?.map((item: SliderItem) => ({
@@ -58,7 +60,7 @@ async function fetchSliderData() {
     
     return { desktopSlides: fallbackSlides, mobileSlides: fallbackSlides };
   }
-}
+});
 
 export default async function HeroImageSlider({ 
   className = ""

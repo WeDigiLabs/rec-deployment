@@ -4,6 +4,9 @@ import "./globals.css";
 import Header from "../components/Header";
 import EllipseBg from "@/components/icons/EllipseBg";
 import Footer from "@/components/Footer";
+import AadhiChatWidget from "@/components/AadhiChatWidget";
+import AadhiMascotIntro from "@/components/landingPage/AadhiMascotIntro";
+import AadhiSmartBanner from "@/components/AadhiSmartBanner";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -34,6 +37,9 @@ export default function RootLayout({
           </div>
           {children}
           <Footer />
+          <AadhiChatWidget />
+          <AadhiMascotIntro />
+          <AadhiSmartBanner />
         </div>
       </body>
     </html>

@@ -5,6 +5,7 @@ import GetStarted from "@/components/landingPage/GetStarted";
 import QuickBlogsSection from "@/components/landingPage/QuickBlogsSection";
 import TestimonialsSection from "@/components/landingPage/TestimonialsSection";
 import StatsSection from "@/components/landingPage/Stats";
+import AadhiFeatureSection from "@/components/landingPage/AadhiFeatureSection";
 
 export default function LandingPage() {
   const stats = [
@@ -20,6 +21,7 @@ export default function LandingPage() {
       <Hero />
       <HeroImageSlider />
       <StatsSection stats={stats} />
+      <AadhiFeatureSection />
       <AnnouncementsSection />
       <GetStarted />
       <QuickBlogsSection />

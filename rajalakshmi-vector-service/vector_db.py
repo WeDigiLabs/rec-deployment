@@ -489,6 +489,11 @@ class VectorDatabaseManager:
         """Search for content with optional filters"""
         return await self.vector_store.search_similar(query, filters, limit)
     
+    async def search_similar(self, query: str, filters: Optional[Dict[str, Any]] = None,
+                           limit: int = 10) -> List[Dict[str, Any]]:
+        """Alias for search_content - search for similar content"""
+        return await self.search_content(query, filters, limit)
+    
     async def get_content_by_source(self, source_id: str, source_type: str) -> List[Dict[str, Any]]:
         """Get all content for a specific source"""
         return await self.vector_store.get_chunks_by_source(source_id, source_type)

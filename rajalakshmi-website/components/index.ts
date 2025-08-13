@@ -16,3 +16,6 @@ export { default as DynamicTable } from './DynamicTable';
 export { default as Breadcrumb } from './Breadcrumb';
 export type { BreadcrumbItem } from './Breadcrumb';
 export { default as YouTubeEmbed, isYouTubeUrl, extractYouTubeVideoId } from './YouTubeEmbed';
+export { default as AadhiChatWidget } from './AadhiChatWidget';
+export { default as AadhiPromoBanner } from './AadhiPromoBanner';
+export { default as AadhiSmartBanner } from './AadhiSmartBanner';
