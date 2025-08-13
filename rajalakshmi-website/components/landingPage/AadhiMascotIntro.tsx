@@ -101,10 +101,10 @@ const AadhiMascotIntro: React.FC<AadhiMascotIntroProps> = ({
       {/* Main Modal */}
       <div className={`
         fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50
-        transition-all duration-500 ease-out
+        transition-all duration-500 ease-out w-[95vw] md:w-auto
         ${isAnimating ? 'scale-100 opacity-100' : 'scale-95 opacity-0'}
       `}>
-        <div className="relative bg-white rounded-3xl shadow-2xl max-w-md mx-4 overflow-hidden">
+        <div className="relative bg-white rounded-3xl shadow-2xl max-w-md w-full overflow-hidden">
           
           {/* Close button */}
           <button
@@ -170,7 +170,7 @@ const AadhiMascotIntro: React.FC<AadhiMascotIntroProps> = ({
             </div>
 
             {/* Comparison section */}
-            <div className="grid grid-cols-2 gap-3 text-sm">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
               
               {/* Traditional browsing */}
               <div className="bg-red-50 rounded-lg p-3 border border-red-100">
@@ -202,7 +202,7 @@ const AadhiMascotIntro: React.FC<AadhiMascotIntroProps> = ({
             {/* Sample questions */}
             <div className="bg-gray-50 rounded-lg p-4">
               <p className="text-gray-700 font-medium text-sm mb-2">Try asking me:</p>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2 justify-center sm:justify-start">
                 {[
                   "Admission process?",
                   "CSE department info?",
@@ -211,7 +211,7 @@ const AadhiMascotIntro: React.FC<AadhiMascotIntroProps> = ({
                 ].map((question, index) => (
                   <span
                     key={index}
-                    className="bg-white text-gray-600 px-3 py-1 rounded-full text-xs border hover:bg-purple-50 hover:border-purple-200 transition-colors duration-200 cursor-pointer"
+                    className="bg-white text-gray-600 px-3 py-2 sm:py-1 rounded-full text-xs border hover:bg-purple-50 hover:border-purple-200 transition-colors duration-200 cursor-pointer text-center"
                     onClick={handleChatClick}
                   >
                     &quot;{question}&quot;
@@ -221,10 +221,10 @@ const AadhiMascotIntro: React.FC<AadhiMascotIntroProps> = ({
             </div>
 
             {/* Action buttons */}
-            <div className="flex gap-3">
+            <div className="flex flex-col sm:flex-row gap-3">
               <button
                 onClick={handleChatClick}
-                className="flex-1 bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-3 px-4 rounded-xl font-semibold hover:from-purple-700 hover:to-indigo-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center gap-2"
+                className="flex-1 bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-3 px-4 rounded-xl font-semibold hover:from-purple-700 hover:to-indigo-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center gap-2 w-full sm:w-auto"
               >
                 <span>🤖</span>
                 Chat with Aadhi
@@ -232,7 +232,7 @@ const AadhiMascotIntro: React.FC<AadhiMascotIntroProps> = ({
               
               <button
                 onClick={handleRemindLater}
-                className="px-4 py-3 text-gray-500 hover:text-gray-700 transition-colors duration-200 text-sm font-medium"
+                className="px-4 py-3 text-gray-500 hover:text-gray-700 transition-colors duration-200 text-sm font-medium w-full sm:w-auto"
               >
                 Maybe later
               </button>

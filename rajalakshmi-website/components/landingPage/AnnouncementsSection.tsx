@@ -54,7 +54,7 @@ export default async function AnnouncementsSection() {
   const announcements = await fetchAnnouncements();
 
   return (
-    <section className="bg-[#FAFAFA] px-4 sm:px-6 md:px-8">
+    <section className="bg-[#FAFAFA] w-full">
       {announcements.length > 0 ? (
         <Announcements
           heading="Announcements"

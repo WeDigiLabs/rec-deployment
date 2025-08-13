@@ -43,7 +43,7 @@ export default function Hero() {
       <div className="flex items-center mt-8 sm:mt-10 md:mt-0 mb-2 sm:mb-4">
         <span className="inline-block w-2 h-2 rounded-full bg-green-600 mr-2"></span>
         <span className="text-xs md:text-base text-black opacity-70 font-semibold font-[Montserrat]">
-          Top Engineering University in India
+          Top Science & Technology Institution in India
         </span>
       </div>
 
@@ -54,7 +54,7 @@ export default function Hero() {
 
       {/* Subtitle */}
       <span className="font-manrope mt-2 md:mt-4 w-full max-w-xs sm:max-w-lg md:max-w-lg xl:max-w-2xl text-xs sm:text-base md:text-base font-semibold text-center leading-[150%] tracking-normal sm:px-6 mb-10">
-        Discover excellence in engineering education with world-class facilities and industry partnerships
+        From Classroom to Career, Excellence, Innovation & Connections for life
       </span>
 
       {/* Hero Buttons - Show from md upward */}
