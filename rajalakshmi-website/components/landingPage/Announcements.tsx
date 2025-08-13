@@ -53,57 +53,63 @@ const Announcements: React.FC<AnnouncementsProps> = ({
   }, []);
 
   return (
-    <div className="w-full min-h-screen relative overflow-hidden bg-black">
-      <div className="absolute inset-0 flex items-center justify-center">
-        {/* Loading State */}
-        {isVideoLoading && (
-          <div className="absolute inset-0 z-10 bg-gray-900/90 backdrop-blur-sm flex items-center justify-center">
-            <div className="flex flex-col items-center space-y-3 p-6 rounded-lg">
-              <div className="animate-spin rounded-full h-10 w-10 border-3 border-[#6A1B9A] border-t-transparent"></div>
-              <p className="text-base text-white/90 font-medium">Loading video...</p>
+    <div className="w-full h-auto md:min-h-screen relative overflow-hidden bg-black">
+      {/* Container with max-width for mobile */}
+      <div className="flex items-start md:items-center justify-center">
+        <div className="relative w-full max-w-screen-md md:max-w-none overflow-hidden">
+          {/* Border overlay for mobile */}
+          <div className="absolute inset-0 border-x-4 border-black/50 md:border-x-0 z-20 pointer-events-none"></div>
+          
+          {/* Loading State */}
+          {isVideoLoading && (
+            <div className="absolute inset-0 z-10 bg-gray-900/90 backdrop-blur-sm flex items-center justify-center">
+              <div className="flex flex-col items-center space-y-3 p-6 rounded-lg">
+                <div className="animate-spin rounded-full h-10 w-10 border-3 border-[#6A1B9A] border-t-transparent"></div>
+                <p className="text-base text-white/90 font-medium">Loading video...</p>
+              </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* Error State */}
-        {videoError && (
-          <div className="absolute inset-0 z-10 bg-gray-900/90 backdrop-blur-sm flex items-center justify-center">
-            <div className="bg-white/10 backdrop-blur-md p-6 rounded-lg text-center max-w-sm mx-4">
-              <p className="text-white/90 text-lg font-medium mb-3">Video unavailable</p>
-              <button 
-                onClick={() => {
-                  setVideoError(false);
-                  setIsVideoLoading(true);
-                  if (videoRef.current) {
-                    videoRef.current.load();
-                  }
-                }}
-                className="px-4 py-2 bg-[#6A1B9A] text-white rounded-md hover:bg-[#4a148c] transition-colors duration-200"
-              >
-                Try again
-              </button>
+          {/* Error State */}
+          {videoError && (
+            <div className="absolute inset-0 z-10 bg-gray-900/90 backdrop-blur-sm flex items-center justify-center">
+              <div className="bg-white/10 backdrop-blur-md p-6 rounded-lg text-center max-w-sm mx-4">
+                <p className="text-white/90 text-lg font-medium mb-3">Video unavailable</p>
+                <button 
+                  onClick={() => {
+                    setVideoError(false);
+                    setIsVideoLoading(true);
+                    if (videoRef.current) {
+                      videoRef.current.load();
+                    }
+                  }}
+                  className="px-4 py-2 bg-[#6A1B9A] text-white rounded-md hover:bg-[#4a148c] transition-colors duration-200"
+                >
+                  Try again
+                </button>
+              </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* Video Element */}
-        <video
-          ref={videoRef}
-          className={`w-full h-screen md:h-auto md:min-h-screen object-cover transition-all duration-700 ${
-            isVideoLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
-          }`}
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="auto"
-        >
-          <source src={getImageUrl('/api/media/file/rec_admissionsOpen.mp4')} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+          {/* Video Element */}
+          <video
+            ref={videoRef}
+            className={`w-full h-auto md:h-screen object-contain md:object-cover transition-all duration-700 ${
+              isVideoLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
+            }`}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+          >
+            <source src={getImageUrl('/api/media/file/rec_admissionsOpen.mp4')} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
 
-        {/* Optional Overlay for better text contrast if needed */}
-        <div className="absolute inset-0 bg-black/20 pointer-events-none"></div>
+          {/* Optional Overlay for better text contrast */}
+          <div className="absolute inset-0 bg-black/20 pointer-events-none"></div>
+        </div>
       </div>
     </div>
   );

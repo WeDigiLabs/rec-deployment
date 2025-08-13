@@ -31,7 +31,7 @@ export default function Hero() {
       {/* ARIIA Badge */}
       <div className="absolute right-3 top-10 sm:right-4 sm:top-3 md:right-[6%] md:top-[5%] xl:right-[8%] xl:top-[6%] flex flex-col items-end gap-1 sm:gap-2">
         <Image
-          src="/assets/icons/ariia.svg"
+          src="/assets/icons/QS.png"
           alt="ARIIA & NAAC Badge"
           width={152}
           height={152}

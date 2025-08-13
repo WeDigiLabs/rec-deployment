@@ -106,12 +106,11 @@ const Header = () => {
   const navItems = useMemo(() => [
     { label: <FaHome size={18} />, href: "/" },
     { label: "About", href: "/about" },
-    { label: "Department", href: "/department", dropdown: departmentSubmenus },
-    { label: "Academics", href: "/academics"},
+    { label: "Academics", href: "/department", dropdown: departmentSubmenus },
     { label: "Admissions", href: "/admissions"},
     { label: "Placements", href: "/placement"},
     { label: "Research", href: "/research" },
-    { label: "Life at REC", href: "/student-life"},
+    { label: "Life at Rajalakshmi", href: "/student-life"},
     { label: "Facilities", href: "/facilities"},  
     { label: "Alumni", href: "/alumni" },
   ], [departmentSubmenus]);
@@ -168,7 +167,7 @@ const Header = () => {
         </div>
         {/* Center: NavBar */}
         <div className="flex-1 flex justify-center min-w-0">
-          <NavBar items={navItems} moreItemsCount={8} />
+          <NavBar items={navItems} moreItemsCount={9} />
         </div>
         {/* Right: Admission and Fee Buttons */}
         <div className="flex items-center gap-1.5 sm:gap-2 lg:gap-3 min-w-[140px] sm:min-w-[160px] lg:min-w-[180px] xl:min-w-[200px] justify-end">

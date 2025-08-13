@@ -8,7 +8,6 @@ const profileLinks = [
   { label: "Accreditations", href: "/accreditations" },
   { label: "Certifications", href: "/certifications" },
   { label: "Governing Council", href: "/governing-council" },
-  { label: "Dev Council", href: "/development-council" },
   { label: "MoU", href: "/mou" },
   { label: "Eminent Faculty", href: "/faculty" },
 ];
@@ -30,6 +29,8 @@ const importantLinks = [
   { label: "ARIIA Validation", href: "/ariia-validation" },
   { label: "NIRF", href: "/nirf" },
   { label: "NAAC-SSR", href: "/naac-ssr" },
+  { label: "Mandatory Disclosure", href: "/mandatory-disclosure" },
+  { label: "Policies", href: "/policies" }
 ];
 
 const supportLinks = [
@@ -131,8 +132,8 @@ const Footer: React.FC = () => {
                 <h4 className="text-[#6A1B9A] font-bold mb-2 text-sm">PHONE</h4>
                 <p className="text-sm whitespace-nowrap">+91-44-67181111, 67181112</p>
                 <h4 className="text-[#6A1B9A] font-bold mt-3 mb-1 text-sm">EMAIL</h4>
-                <a href="mailto:contact@rajalakshmi.org" className="hover:underline block text-sm whitespace-nowrap">
-                  contact@rajalakshmi.org
+                <a href="mailto:admin@rajalakshmi.org" className="hover:underline block text-sm whitespace-nowrap">
+                  admin@rajalakshmi.org
                 </a>
               </div>
             </div>
