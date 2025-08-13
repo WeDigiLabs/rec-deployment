@@ -5,6 +5,7 @@ import Logo from "./Logo";
 import { Button, NavBar } from "./index";
 import { fetchFromApi } from "../lib/api";
 import SecondaryNavbar from "./SecondaryNavbar";
+import { FaHome } from "react-icons/fa";
 
 
 type Department = {
@@ -103,16 +104,15 @@ const Header = () => {
   }, []);
 
   const navItems = useMemo(() => [
-    { label: "Home", href: "/" },
+    { label: <FaHome size={18} />, href: "/" },
     { label: "About", href: "/about" },
     { label: "Department", href: "/department", dropdown: departmentSubmenus },
-    { label: "COE", href: "/coe" },
     { label: "Academics", href: "/academics"},
     { label: "Admissions", href: "/admissions"},
     { label: "Placements", href: "/placement"},
-    { label: "Facilities", href: "/facilities"},  
     { label: "Research", href: "/research" },
-    { label: "Student Life", href: "/student-life"},
+    { label: "Life at REC", href: "/student-life"},
+    { label: "Facilities", href: "/facilities"},  
     { label: "Alumni", href: "/alumni" },
   ], [departmentSubmenus]);
 
@@ -163,8 +163,8 @@ const Header = () => {
 
       {/* XL and above */}
       <div className="hidden xl:flex items-center justify-between gap-2 xl:gap-4">
-        <div className="flex items-center justify-center min-w-[140px] sm:min-w-[160px] lg:min-w-[180px] xl:min-w-[200px]">
-          <Logo width={128} height={128} className="sm:w-32 sm:h-32 lg:w-36 lg:h-36 xl:w-40 xl:h-40" />
+        <div className="flex items-center justify-center min-w-[160px] sm:min-w-[180px] lg:min-w-[200px] xl:min-w-[220px]">
+          <Logo width={160} height={160} className="sm:w-40 sm:h-40 lg:w-44 lg:h-44 xl:w-48 xl:h-48" />
         </div>
         {/* Center: NavBar */}
         <div className="flex-1 flex justify-center min-w-0">
@@ -270,8 +270,8 @@ const Header = () => {
       </div>
       {/* LG only: moreItemsCount=7 */}
       <div className="hidden lg:flex xl:hidden items-center justify-between gap-2 xl:gap-4">
-        <div className="flex items-center justify-center min-w-[140px] sm:min-w-[160px] lg:min-w-[180px] xl:min-w-[200px]">
-          <Logo width={128} height={128} className="sm:w-32 sm:h-32 lg:w-36 lg:h-36 xl:w-40 xl:h-40" />
+        <div className="flex items-center justify-center min-w-[160px] sm:min-w-[180px] lg:min-w-[200px] xl:min-w-[220px]">
+          <Logo width={160} height={160} className="sm:w-40 sm:h-40 lg:w-44 lg:h-44 xl:w-48 xl:h-48" />
         </div>
         {/* Center: NavBar with fewer items */}
         <div className="flex-1 flex justify-center min-w-0">
@@ -310,7 +310,7 @@ const Header = () => {
       {/* Mobile Layout: all items in hamburger */}
       <div className="flex flex-row md:hidden w-full items-center justify-between p-3">
         <div className="flex items-center">
-          <Logo width={128} height={128} className="sm:w-36 sm:h-36" />
+          <Logo width={160} height={160} className="sm:w-44 sm:h-44" />
         </div>
         <div className="flex items-center">
           <NavBar items={navItems} />

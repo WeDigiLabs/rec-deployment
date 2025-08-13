@@ -53,23 +53,23 @@ const Announcements: React.FC<AnnouncementsProps> = ({
   }, []);
 
   return (
-    <div className="w-full h-screen relative overflow-hidden">
-      <div className="absolute inset-0">
+    <div className="w-full min-h-screen relative overflow-hidden bg-black">
+      <div className="absolute inset-0 flex items-center justify-center">
         {/* Loading State */}
         {isVideoLoading && (
-          <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-            <div className="flex flex-col items-center space-y-2">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#6A1B9A]"></div>
-              <p className="text-sm text-gray-600">Loading video...</p>
+          <div className="absolute inset-0 z-10 bg-gray-900/90 backdrop-blur-sm flex items-center justify-center">
+            <div className="flex flex-col items-center space-y-3 p-6 rounded-lg">
+              <div className="animate-spin rounded-full h-10 w-10 border-3 border-[#6A1B9A] border-t-transparent"></div>
+              <p className="text-base text-white/90 font-medium">Loading video...</p>
             </div>
           </div>
         )}
 
         {/* Error State */}
         {videoError && (
-          <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-            <div className="text-center">
-              <p className="text-sm text-gray-600 mb-2">Video unavailable</p>
+          <div className="absolute inset-0 z-10 bg-gray-900/90 backdrop-blur-sm flex items-center justify-center">
+            <div className="bg-white/10 backdrop-blur-md p-6 rounded-lg text-center max-w-sm mx-4">
+              <p className="text-white/90 text-lg font-medium mb-3">Video unavailable</p>
               <button 
                 onClick={() => {
                   setVideoError(false);
@@ -78,7 +78,7 @@ const Announcements: React.FC<AnnouncementsProps> = ({
                     videoRef.current.load();
                   }
                 }}
-                className="text-[#6A1B9A] text-sm underline hover:text-[#4a148c]"
+                className="px-4 py-2 bg-[#6A1B9A] text-white rounded-md hover:bg-[#4a148c] transition-colors duration-200"
               >
                 Try again
               </button>
@@ -89,8 +89,8 @@ const Announcements: React.FC<AnnouncementsProps> = ({
         {/* Video Element */}
         <video
           ref={videoRef}
-          className={`w-full h-full object-cover transition-opacity duration-500 ${
-            isVideoLoaded ? 'opacity-100' : 'opacity-0'
+          className={`w-full h-screen md:h-auto md:min-h-screen object-cover transition-all duration-700 ${
+            isVideoLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
           }`}
           autoPlay
           loop
@@ -101,6 +101,9 @@ const Announcements: React.FC<AnnouncementsProps> = ({
           <source src={getImageUrl('/api/media/file/rec_admissionsOpen.mp4')} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
+
+        {/* Optional Overlay for better text contrast if needed */}
+        <div className="absolute inset-0 bg-black/20 pointer-events-none"></div>
       </div>
     </div>
   );

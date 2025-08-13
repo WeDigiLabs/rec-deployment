@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useRouter } from "next/navigation";
 
 export interface NavBarProps {
-  items: ({ label: string; href?: string; onClick?: () => void; dropdown?: { label: string; href?: string; onClick?: () => void }[]; className?: string })[];
+  items: ({ label: string | React.ReactElement; href?: string; onClick?: () => void; dropdown?: { label: string; href?: string; onClick?: () => void }[]; className?: string })[];
   className?: string;
   defaultActiveIndex?: number;
   moreItemsCount?: number;
@@ -124,7 +124,7 @@ const NavBar: React.FC<NavBarProps> = ({
     return () => window.removeEventListener('resize', handleResize);
   }, [activeIndex, mounted]);
 
-  const handleItemClick = (index: number, item: { label: string; href?: string; onClick?: () => void; dropdown?: { label: string; href?: string; onClick?: () => void }[] }) => {
+  const handleItemClick = (index: number, item: { label: string | React.ReactElement; href?: string; onClick?: () => void; dropdown?: { label: string; href?: string; onClick?: () => void }[] }) => {
     if (!item.dropdown) {
       setActiveIndex(index);
       updateIndicatorPosition(index);

@@ -10,7 +10,7 @@ import StatsSection from "@/components/landingPage/Stats";
 export default function LandingPage() {
   const stats = [
     { value: "28+", label: "Years of Excellence" },
-    { value: "1,000+", label: "Students Enrolled" },
+    { value: "12,000+", label: "Students Enrolled" },
     { value: "95%", label: "Placement Rate" },
     { value: "50+", label: "Industry Partners" },
     { value: "550+", label: "Expert Faculty" },

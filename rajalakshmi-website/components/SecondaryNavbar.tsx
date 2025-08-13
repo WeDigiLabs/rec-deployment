@@ -58,13 +58,13 @@ const SecondaryNavbar = () => {
   return (
     <div
       className="
-        hidden md:flex absolute top-0 right-5 bg-[#B756F2]
-        rounded-b-lg justify-around
+        hidden md:flex absolute top-0 right-5
+        justify-around gap-2
         z-50 font-monrope
         transition-all duration-300 ease-in-out
-        py-3 px-2 text-base
-        lg:py-3 lg:px-2 lg:text-base
-        md:py-2 md:px-1 md:text-sm
+        py-2 px-1.5 text-sm
+        lg:py-2 lg:px-2 lg:text-sm
+        md:py-1.5 md:px-1 md:text-xs
       "
     >
       {links.map((item) => (
@@ -72,8 +72,8 @@ const SecondaryNavbar = () => {
           key={item.id}
           href={item.href}
           className="
-            relative text-white font-medium px-4 group overflow-visible
-            transition-all duration-500 ease-out
+            relative text-gray-700 hover:text-[#B756F2] font-normal px-2 group overflow-visible
+            transition-all duration-300 ease-out text-sm
           "
         >
           <span className="relative z-10 group-hover:-translate-y-1 group-hover:scale-110 transition-transform duration-500 ease-out">
@@ -83,12 +83,11 @@ const SecondaryNavbar = () => {
             <span
               className="absolute w-[180%] h-[180%] rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out"
               style={{
-                filter: "blur(40px)", 
+                filter: "blur(15px)", 
                 background:
-                  "radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,255,255,0.8) 40%, rgba(183,86,242,0.7) 70%, transparent 100%)",
+                  "radial-gradient(circle, rgba(183,86,242,0.15) 0%, rgba(183,86,242,0.1) 40%, transparent 70%)",
                 zIndex: "-1",
-                mixBlendMode: "screen",
-                transform: "scale(1.2)", 
+                transform: "scale(1.05)", 
               }}
             ></span>
           </span>
